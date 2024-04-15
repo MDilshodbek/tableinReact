@@ -60,6 +60,10 @@ class App extends Component {
         data: this.state.data.filter((item) => item.id !== value.id),
       });
     };
+
+    const onAdd = (event) => {
+      event.preventDefault();
+    };
     return (
       <div style={styleWrapper}>
         <table border={1}>
@@ -163,6 +167,12 @@ class App extends Component {
             })}
           </tbody>
         </table>
+        <form style={{ marginTop: "100px" }} onSubmit={onAdd}>
+          <input type="Name" />
+          <input type="Surname" />
+          <input type="Age" />
+          <button type="submit">Submit</button>
+        </form>
       </div>
     );
   }
