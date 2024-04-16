@@ -63,6 +63,16 @@ class App extends Component {
 
     const onAdd = (event) => {
       event.preventDefault();
+      const newData = {
+        name: event.target[0].value,
+        surname: event.target[1].value,
+        Age: event.target[1].value, 
+        id: this.state.data.length + 1,
+      };
+
+      this.setState({
+        data: [...this.state.data, newData],
+      });
     };
     return (
       <div style={styleWrapper}>
@@ -171,11 +181,11 @@ class App extends Component {
           <input type="Name" />
           <input type="Surname" />
           <input type="Age" />
-          <button type="submit">Submit</button>
+          <button type="submit" onClick={onAdd }>Submit</button>
         </form>
       </div>
     );
-  }
+  }  
 }
 
 export default App;
