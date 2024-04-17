@@ -48,7 +48,7 @@ class App extends Component {
       this.setState({
         data: this.state.data.map((value) => {
           return value.id === this.state.selectedColumn.id
-            ? this.state.selectedColumn.id
+            ? this.state.selectedColumn
             : value;
         }),
         selectedColumn: null,
@@ -63,13 +63,13 @@ class App extends Component {
 
     const onAdd = (event) => {
       event.preventDefault();
+      console.log(this.state.data);
       const newData = {
-        name: event.target[0].value,
-        surname: event.target[1].value,
-        Age: event.target[1].value, 
-        id: this.state.data.length + 1,
+        Name: event.target[0].value,
+        Surname: event.target[1].value,
+        Age: event.target[2].value,
+        id: this.state.data.value + 1,
       };
-
       this.setState({
         data: [...this.state.data, newData],
       });
@@ -98,10 +98,10 @@ class App extends Component {
                         onChange={(e) => {
                           this.setState({
                             selectedColumn: {
+                              id: this.state.selectedColumn.id,
                               Name: e.target.value,
                               Surname: this.state.selectedColumn.Surname,
                               Age: this.state.selectedColumn.Age,
-                              id: this.state.selectedColumn.id,
                             },
                           });
                         }}
@@ -119,10 +119,10 @@ class App extends Component {
                         onChange={(e) => {
                           this.setState({
                             selectedColumn: {
-                              Surname: e.target.value,
-                              Name: this.state.selectedColumn.Name,
-                              Age: this.state.selectedColumn.Age,
                               id: this.state.selectedColumn.id,
+                              Name: this.state.selectedColumn.Name,
+                              Surname: e.target.value,
+                              Age: this.state.selectedColumn.Age,
                             },
                           });
                         }}
@@ -140,10 +140,10 @@ class App extends Component {
                         onChange={(e) => {
                           this.setState({
                             selectedColumn: {
-                              Age: e.target.value,
-                              Surname: this.state.selectedColumn.Surname,
-                              Name: this.state.selectedColumn.Name,
                               id: this.state.selectedColumn.id,
+                              Name: this.state.selectedColumn.Name,
+                              Surname: this.state.selectedColumn.Surname,
+                              Age: e.target.value,
                             },
                           });
                         }}
@@ -178,14 +178,14 @@ class App extends Component {
           </tbody>
         </table>
         <form style={{ marginTop: "100px" }} onSubmit={onAdd}>
-          <input type="Name" />
-          <input type="Surname" />
-          <input type="Age" />
-          <button type="submit" onClick={onAdd }>Submit</button>
+          <input type="Name" placeholder="Name" />
+          <input type="Surname" placeholder="Surname" />
+          <input type="Age" placeholder="Age" />
+          <button type="submit">Submit</button>
         </form>
       </div>
     );
-  }  
+  }
 }
 
 export default App;
