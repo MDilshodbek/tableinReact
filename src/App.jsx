@@ -11,24 +11,33 @@ const styleWrapper = {
 };
 
 class App extends Component {
+  // uniqueId = () => {
+  //   return ++App.counter;
+  // };
+
+  static counter = 0;
+
   constructor() {
     super();
+
+    App.counter = 0;
+
     this.state = {
       data: [
         {
-          id: "1",
+          id: this.uniqueId(),
           Name: "A",
           Surname: "A",
           Age: "A",
         },
         {
-          id: "2",
+          id: this.uniqueId(),
           Name: "B",
           Surname: "B",
           Age: "B",
         },
         {
-          id: "3",
+          id: this.uniqueId(),
           Name: "C",
           Surname: "C",
           Age: "C",
@@ -37,6 +46,11 @@ class App extends Component {
       selectedColumn: null,
     };
   }
+
+  uniqueId = () => {
+    return ++App.counter;
+  };
+
   render() {
     const onEdit = (value) => {
       this.setState({
@@ -63,17 +77,24 @@ class App extends Component {
 
     const onAdd = (event) => {
       event.preventDefault();
-      console.log(this.state.data);
       const newData = {
         Name: event.target[0].value,
         Surname: event.target[1].value,
         Age: event.target[2].value,
-        id: this.state.data.value + 1,
+        id: this.uniqueId(),
       };
-      this.setState({
-        data: [...this.state.data, newData],
-      });
+
+      this.setState(
+        (prevState) => ({ data: [...prevState.data, newData] }),
+        () => {
+          console.log(this.state.data); // Log the updated data after state has been updated
+          event.target[0].value = "";
+          event.target[1].value = "";
+          event.target[2].value = "";
+        }
+      );
     };
+
     return (
       <div style={styleWrapper}>
         <table border={1}>
@@ -178,10 +199,12 @@ class App extends Component {
           </tbody>
         </table>
         <form style={{ marginTop: "100px" }} onSubmit={onAdd}>
-          <input type="Name" placeholder="Name" />
-          <input type="Surname" placeholder="Surname" />
-          <input type="Age" placeholder="Age" />
-          <button type="submit">Submit</button>
+          <input required type="Name " placeholder="Name" />
+          <input required type="Surname" placeholder="Surname" />
+          <input required type="Age" placeholder="Age" />
+          <button required type="submit">
+            Submit
+          </button>
         </form>
       </div>
     );
