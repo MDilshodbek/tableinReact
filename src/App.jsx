@@ -174,7 +174,8 @@ class App extends Component {
                     )}
                   </td>
                   <td>
-                    {this.state.selectedColumn ? (
+                    {this.state.selectedColumn &&
+                    value.id === this.state.selectedColumn.id ? (
                       <button onClick={onSave}>Save</button>
                     ) : (
                       <button
